@@ -131,10 +131,7 @@ async function loadBookedTimes() {
   const info = document.querySelector('#availability-message')
   info.textContent = 'Consultando horários...'
   const { data, error } = await supabase
-    .from('appointments')
-    .select('appointment_time')
-    .eq('appointment_date', date)
-    .eq('status', 'confirmed')
+    .rpc('get_booked_times', { p_date: date })
   if (error) {
     bookedTimes = []
     renderTimeButtons()
